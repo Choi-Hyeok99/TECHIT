@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ll.level0.p120807.Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-02-23T02:16:23" hostname="Hyeokui-MacBookPro.local" time="0.087">
+  <properties/>
+  <testcase name="70도가 입력되었을 때의 결과는 1" classname="com.ll.level0.p120807.Tests" time="0.068"/>
+  <testcase name="91도가 입력되었을 때의 결과는 3" classname="com.ll.level0.p120807.Tests" time="0.003"/>
+  <testcase name="92도가 입력되었을 때의 결과는 3" classname="com.ll.level0.p120807.Tests" time="0.004"/>
+  <testcase name="180도가 입력되었을 때의 결과는 4" classname="com.ll.level0.p120807.Tests" time="0.002"/>
+  <testcase name="90도가 입력되었을 때의 결과는 2" classname="com.ll.level0.p120807.Tests" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
