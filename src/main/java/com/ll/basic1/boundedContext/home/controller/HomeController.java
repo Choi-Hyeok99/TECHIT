@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ll.basic1.boundedContext.member.entity.Member;
 import com.ll.basic1.boundedContext.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -24,6 +26,8 @@ import java.util.*;
 public class HomeController {
     private int count;
     private List<Person> people;
+    @Autowired
+
     private MemberService memberService;
 
 
