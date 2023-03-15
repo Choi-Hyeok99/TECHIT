@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.ll.basic1.boundedContext.member.entity.Member;
+import com.ll.basic1.boundedContext.member.service.MemberService;
 
 import java.io.IOException;
 import java.util.*;
@@ -22,10 +24,14 @@ import java.util.*;
 public class HomeController {
     private int count;
     private List<Person> people;
+    private MemberService memberService;
+
 
     public HomeController() {
         count = -1;
         people = new ArrayList<>();
+        memberService = new MemberService();
+
     }
 
     // @GetMapping("/home/main") 의 의미
@@ -283,6 +289,11 @@ public class HomeController {
 
         // 응답 본문
         return newCountInCookie;
+    }
+    @GetMapping("/home/user1")
+    @ResponseBody
+    public Member showUser1() {
+        return memberService.findByUsername("user1");
     }
 }
 
