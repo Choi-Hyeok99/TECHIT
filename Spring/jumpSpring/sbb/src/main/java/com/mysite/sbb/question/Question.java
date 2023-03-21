@@ -1,9 +1,14 @@
-package com.mysite.sbb;
+package com.mysite.sbb.question;
 
+import com.mysite.sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.List;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.ArrayList;
 
 import java.time.LocalDateTime;
@@ -12,7 +17,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Controller
 public class Question {
+
+
     @Id // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private Integer id; // INT id
@@ -34,10 +42,13 @@ public class Question {
     // 다만 만들면 해당 객체(질문객체)에서 관련된 답변들을 찾을 때 편합니다.
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     // OneToMany 에는 직접객체초기화
-    private List<Answer> answerList = new ArrayList<>();
+    private List<Answer> answerList = new ArrayList<>(); // OneToMany에는 무조건  new ArrayList<>() 이거 무조건 써라
 
     public void addAnswer(Answer a) {
         a.setQuestion(this);
         answerList.add(a);
     }
+
+
+
 }

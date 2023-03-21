@@ -1,6 +1,10 @@
 package com.mysite.sbb;
 
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.AnswerRepository;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,12 +39,14 @@ class SbbApplicationTests {
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setCreateDate(LocalDateTime.now());
         questionRepository.save(q1);  // 첫번째 질문 저장
+
         // 질문 1개 생성
         Question q2 = new Question();
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);  // 두번째 질문 저장
+
         // 답변 1개 생성
         Answer a1 = new Answer();
         a1.setContent("네 자동으로 생성됩니다.");
