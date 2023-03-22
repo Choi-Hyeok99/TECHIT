@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.List;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Controller
+@ToString
 public class Question {
 
 
