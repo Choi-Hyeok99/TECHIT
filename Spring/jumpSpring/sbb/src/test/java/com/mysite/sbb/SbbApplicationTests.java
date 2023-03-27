@@ -223,8 +223,6 @@ class SbbApplicationTests {
     @Test
     @DisplayName("대량 테스트 데이터 만들기")
     void t012() {
-        IntStream.range(2, 300).forEach(no -> questionService.create("테스트 제목입니다. %d".formatted(no), "테스트 내용입니다. %d".formatted(no)));
-
-
+        IntStream.rangeClosed(3, 300).forEach(no -> questionService.create("테스트 제목입니다. %d".formatted(no), "테스트 내용입니다. %d".formatted(no)));
     }
 }
