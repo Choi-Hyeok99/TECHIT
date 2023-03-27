@@ -5,6 +5,7 @@
 <body>
 <div layout:fragment="content" class="container my-3">
 
+    <!--/*
     <table class="table">
         <thead class="table-dark">
         <tr>
@@ -23,7 +24,6 @@
                 [[${paging.isEmpty()}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.totalElements</th>
             <td>
@@ -33,7 +33,6 @@
                 [[${paging.totalElements}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.totalPages</th>
             <td>
@@ -43,7 +42,6 @@
                 [[${paging.totalPages}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.size</th>
             <td>
@@ -53,7 +51,6 @@
                 [[${paging.size}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.number</th>
             <td>
@@ -63,7 +60,6 @@
                 [[${paging.number}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.hasPrevious</th>
             <td>
@@ -73,7 +69,6 @@
                 [[${paging.hasPrevious}]]
             </td>
         </tr>
-
         <tr>
             <th>paging.hasNext</th>
             <td>
@@ -83,11 +78,10 @@
                 [[${paging.hasNext}]]
             </td>
         </tr>
-
         </tbody>
     </table>
-
     <hr>
+    */-->
 
     <table class="table">
 
@@ -111,18 +105,29 @@
         </tbody>
     </table>
 
+
     <nav th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${paging.number == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=0|}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
                 <a class="page-link" th:href="@{|?page=${paging.number - 1}|}">이전</a>
             </li>
             <li class="page-item" th:classappend="${paging.number == page} ? 'active'"
-                th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:each="page: ${#numbers.sequence(0, paging.totalPages - 1)}"
                 th:if="${page >= paging.number - 5 and page <= paging.number + 5}">
                 <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page}"></a>
             </li>
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
                 <a class="page-link" th:href="@{|?page=${paging.number + 1}|}">다음</a>
+            </li>
+            <li class="page-item" th:classappend="${paging.number == paging.totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.totalPages - 1}|}">
+                    <span>&raquo;</span>
+                </a>
             </li>
         </ul>
     </nav>
