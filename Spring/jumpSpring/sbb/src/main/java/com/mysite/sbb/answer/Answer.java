@@ -1,6 +1,7 @@
 package com.mysite.sbb.answer;
 
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,10 @@ public class Answer {
 
     private LocalDateTime createDate; // DATETIME
 
-    @ManyToOne // 아래 처럼 다른 엔티티 클래스 리모콘을 저장할 때는 꼭 관계를 적어준다.
+    @ManyToOne
     @ToString.Exclude // ToString 대상에서 제외
     private Question question;
-    // `public class Answer` @ManyToOne `private Question question`
+
+    @ManyToOne
+    private SiteUser author;
 }
