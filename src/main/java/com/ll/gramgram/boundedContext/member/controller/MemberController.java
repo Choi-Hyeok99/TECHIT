@@ -18,6 +18,6 @@ public class MemberController {
     }
     @PostMapping("/join")
     public String join(){
-        return "redirect:/";
+        return "redirect:/"; // -> redirect?
     }
 }
