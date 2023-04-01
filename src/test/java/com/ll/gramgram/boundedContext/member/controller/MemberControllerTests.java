@@ -1,15 +1,19 @@
 package com.ll.gramgram.boundedContext.member.controller;
 
-
 import com.ll.gramgram.boundedContext.member.entity.Member;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +24,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 @SpringBootTest // 스프링부트 관련 컴포넌트 테스트할 때 붙여야 함, Ioc 컨테이너 작동시킴
 @AutoConfigureMockMvc // http 요청, 응답 테스트
 @Transactional // 실제로 테스트에서 발생한 DB 작업이 영구적으로 적용되지 않도록, test + 트랜잭션 => 자동롤백
@@ -30,7 +33,6 @@ public class MemberControllerTests {
     private MockMvc mvc;
     @Autowired
     private MemberService memberService;
-
     @Test
     @DisplayName("회원가입 폼")
     void t001() throws Exception {
@@ -38,7 +40,6 @@ public class MemberControllerTests {
         ResultActions resultActions = mvc
                 .perform(get("/member/join"))
                 .andDo(print()); // 크게 의미 없고, 그냥 확인용
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
@@ -54,7 +55,6 @@ public class MemberControllerTests {
                         <input type="submit" value="회원가입"
                         """.stripIndent().trim())));
     }
-
     @Test
     // @Rollback(value = false) // DB에 흔적이 남는다.
     @DisplayName("회원가입")
@@ -67,18 +67,14 @@ public class MemberControllerTests {
                         .param("password", "1234")
                 )
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is3xxRedirection());
-
         Member member = memberService.findByUsername("user10").orElse(null);
-
         assertThat(member).isNotNull();
     }
-
     @Test
     @DisplayName("회원가입시에 올바른 데이터를 넘기지 않으면 400")
     void t003() throws Exception {
@@ -89,13 +85,11 @@ public class MemberControllerTests {
                         .param("username", "user10")
                 )
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is4xxClientError());
-
         // WHEN
         resultActions = mvc
                 .perform(post("/member/join")
@@ -103,13 +97,11 @@ public class MemberControllerTests {
                         .param("password", "1234")
                 )
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is4xxClientError());
-
         // WHEN
         resultActions = mvc
                 .perform(post("/member/join")
@@ -118,13 +110,11 @@ public class MemberControllerTests {
                         .param("password", "1234")
                 )
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is4xxClientError());
-
         // WHEN
         resultActions = mvc
                 .perform(post("/member/join")
@@ -133,14 +123,12 @@ public class MemberControllerTests {
                         .param("password", "1234" + "a".repeat(30))
                 )
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is4xxClientError());
     }
-
     @Test
     @DisplayName("로그인 폼")
     void t004() throws Exception {
@@ -148,7 +136,6 @@ public class MemberControllerTests {
         ResultActions resultActions = mvc
                 .perform(get("/member/login"))
                 .andDo(print());
-
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
@@ -176,6 +163,14 @@ public class MemberControllerTests {
                         .param("password", "1234")
                 )
                 .andDo(print());
+
+        // 세션에 접근해서 user 객체를 가져온다.
+        MvcResult mvcResult = resultActions.andReturn();
+        HttpSession session = mvcResult.getRequest().getSession(false);// 원래 getSession 을 하면, 만약에 없을 경우에 만들어서라도 준다., false 는 없으면 만들지 말라는 뜻
+        SecurityContext securityContext = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
+        User user = (User)securityContext.getAuthentication().getPrincipal();
+
+        assertThat(user.getUsername()).isEqualTo("user1");
 
         // THEN
         resultActions
