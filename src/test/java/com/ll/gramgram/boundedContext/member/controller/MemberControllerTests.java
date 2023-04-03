@@ -24,7 +24,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-@SpringBootTest // 스프링부트 관련 컴포넌트 테스트할 때 붙여야 함, Ioc 컨테이너 작동시킴
+
+
+@SpringBootTest // 스프링부트 관련 컴포넌트 테스트할 때 붙여야 함, Ioc 컨테이너 작동시킴 + @Autowired 와 @Test 사용할 수 있음 + 뺴는 경우도 있는데 그럼 속도가 좀 빨리짐
 @AutoConfigureMockMvc // http 요청, 응답 테스트
 @Transactional // 실제로 테스트에서 발생한 DB 작업이 영구적으로 적용되지 않도록, test + 트랜잭션 => 자동롤백
 @ActiveProfiles("test") // application-test.yml 을 활성화 시킨다.
@@ -38,7 +40,7 @@ public class MemberControllerTests {
     void t001() throws Exception {
         // WHEN
         ResultActions resultActions = mvc
-                .perform(get("/member/join"))
+                .perform(get("/member/join/"))
                 .andDo(print()); // 크게 의미 없고, 그냥 확인용
         // THEN
         resultActions
@@ -62,7 +64,7 @@ public class MemberControllerTests {
         // WHEN
         ResultActions resultActions = mvc
                 .perform(post("/member/join")
-                        .with(csrf()) // CSRF 키 생성
+                        .with(csrf()) // CSRF 키 생성 ->
                         .param("username", "user10")
                         .param("password", "1234")
                 )
@@ -135,7 +137,7 @@ public class MemberControllerTests {
         // WHEN
         ResultActions resultActions = mvc
                 .perform(get("/member/login"))
-                .andDo(print());
+                .andDo(print()); // 보기편하게
         // THEN
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))

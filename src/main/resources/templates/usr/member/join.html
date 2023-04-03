@@ -30,7 +30,7 @@
             form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
             if (form.password.value.length == 0) {
-                form.password.focus();
+                form.password.focus(); // 알림이뜨고 다시 비밀번호창이 빤짝빤짝 거리게하는 명령어
                 toastWarning('비밀번호를 입력해주세요.');
                 return;
             }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true) // 아래 메서드들이 전부 readonly 라는 것을 명시, 나중을 위해
+@Transactional(readOnly = true) // 아래 메서드들이 전부 readonly(읽기전용?) 라는 것을 명시, 나중을 위해
 public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
@@ -21,7 +21,7 @@ public class MemberService {
         return memberRepository.findByUsername(username);
     }
 
-    @Transactional
+    @Transactional  // (readOnly = false)
     public Member join(String username, String password) {
         Member member = Member
                 .builder()

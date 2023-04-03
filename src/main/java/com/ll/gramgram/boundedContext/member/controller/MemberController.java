@@ -20,7 +20,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PreAuthorize("isAnonymous()")
-    @GetMapping("/join")
+    @GetMapping("/join/")
     public String showJoin() {
         return "usr/member/join";
     }
