@@ -41,7 +41,7 @@ public class MemberControllerTests {
     void t001() throws Exception {
         // WHEN
         ResultActions resultActions = mvc
-                .perform(get("/member/join/"))
+                .perform(get("/member/join"))
                 .andDo(print()); // 크게 의미 없고, 그냥 확인용
         // THEN
         resultActions
@@ -74,7 +74,9 @@ public class MemberControllerTests {
         resultActions
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/member/login?msg=**"));
+
 
         Member member = memberService.findByUsername("user10").orElse(null);
 
