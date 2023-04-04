@@ -36,7 +36,7 @@ public class MemberController {
         private final String password;
     }
 
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()") // <- ?? 로그인 안한 사람만 들어올 수 있다.
     @PostMapping("/join")
     public String join(@Valid JoinForm joinForm) {
         memberService.join(joinForm.getUsername(), joinForm.getPassword());

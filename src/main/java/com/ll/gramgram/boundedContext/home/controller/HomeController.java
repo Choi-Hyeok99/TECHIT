@@ -16,7 +16,7 @@ public class HomeController {
         return "usr/home/main";
     }
 
-    @GetMapping("/debugSession")
+    @GetMapping("/debugSession") // 회원이 가지는 세션의 값을 쉽게 보기위해 작성한 코드이다.
     @ResponseBody
     public String showDebugSession(HttpSession session) {
         StringBuilder sb = new StringBuilder("Session content:\n");

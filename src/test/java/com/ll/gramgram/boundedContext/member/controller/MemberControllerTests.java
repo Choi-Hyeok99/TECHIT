@@ -158,7 +158,7 @@ public class MemberControllerTests {
     @DisplayName("로그인 처리")
     void t005() throws Exception {
         // WHEN
-        ResultActions resultActions = mvc
+        ResultActions resultActions = mvc // <-?
                 .perform(post("/member/login")
                         .with(csrf()) // CSRF 키 생성
                         .param("username", "user1")
@@ -169,7 +169,7 @@ public class MemberControllerTests {
         // 세션에 접근해서 user 객체를 가져온다.
         MvcResult mvcResult = resultActions.andReturn();
         HttpSession session = mvcResult.getRequest().getSession(false);// 원래 getSession 을 하면, 만약에 없을 경우에 만들어서라도 준다., false 는 없으면 만들지 말라는 뜻
-        SecurityContext securityContext = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
+        SecurityContext securityContext = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT"); //  이 4줄은 이해대상이 아니다.
         User user = (User)securityContext.getAuthentication().getPrincipal();
 
         assertThat(user.getUsername()).isEqualTo("user1");

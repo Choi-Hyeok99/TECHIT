@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+// 이 파트를 통해서 테이블을 인식해서 아이디 정보가 있는지 확인해줌
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = false)

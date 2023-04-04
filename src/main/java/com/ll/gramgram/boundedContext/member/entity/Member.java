@@ -29,7 +29,7 @@ public class Member {
     private LocalDateTime createDate;
     @LastModifiedDate
     private LocalDateTime modifyDate;
-    @Column(unique = true)
+    @Column(unique = true) // <- ??
     private String username;
     private String password;
 
