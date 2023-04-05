@@ -48,4 +48,8 @@ public class LikeablePersonService {
     public List<LikeablePerson> findByFromInstaMemberId(Long fromInstaMemberId) {
         return likeablePersonRepository.findByFromInstaMemberId(fromInstaMemberId);
     }
+    // 서비스 코드는 아예 감이 안잡혀 검색도 하고 Gpt도 이용했지만 구현 못함 X
+    public RsData<LikeablePerson> deleteLikeablePerson(InstaMember instaMember, Integer id) {
+
+    }
 }
