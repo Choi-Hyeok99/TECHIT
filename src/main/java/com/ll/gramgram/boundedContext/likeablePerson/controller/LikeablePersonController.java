@@ -61,4 +61,11 @@ public class LikeablePersonController {
 
         return "usr/likeablePerson/list";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+
+
+        return rq.redirectWithMsg("/likeablePerson/list","삭제되었습니다.");
+    }
 }
