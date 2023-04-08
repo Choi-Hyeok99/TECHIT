@@ -11,7 +11,7 @@ spring:
       client:
         registration:
           kakao:
-            clientId: b74d43b30fc764fd14d1a29acc183150
+            clientId: 0e59d4068f2c83091f3c4511cb557c15
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
@@ -34,6 +34,6 @@ spring:
 logging:
   level:
     root: INFO
-    com.ll.gramgram_ai: DEBUG
+    com.ll.gramgram: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
