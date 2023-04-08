@@ -61,13 +61,5 @@ public class LikeablePersonController {
 
         return "usr/likeablePerson/list";
     }
-    // add메서드를 참고하긴했지만 그 이상 나아가기 어려움
-    @GetMapping("/delete/{id}")
-    public String delete(Principal principal, @PathVariable("id") Integer id){
-        RsData<LikeablePerson> deleteRsDate = likeablePersonService.deleteLikeablePerson(rq.getMember().getInstaMember(),id);
-
-        return rq.redirectWithMsg("/likeablePerson/list", deleteRsDate);
-
-    }
 
 }

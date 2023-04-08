@@ -35,4 +35,9 @@
 2. 코드를 직접 쳐보고 생각하는 시간이 더욱 많이 필요함
 3. 기본적인 공부가 필요함
 ---
-* test 
+* 1Week 리팩토링
+1. 테스트 코드 작성
+2. 호감 취소를 위한 LikeablePestonController 컨트롤러 코드 작성
+3. 호감 취소를 위한 LikeablePestonService 코드 작성
+4. GET 방식에서 POST 방식으로 변환
+
