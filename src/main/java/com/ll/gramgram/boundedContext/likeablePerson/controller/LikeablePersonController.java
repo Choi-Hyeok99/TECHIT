@@ -61,5 +61,4 @@ public class LikeablePersonController {
 
         return "usr/likeablePerson/list";
     }
-
 }
