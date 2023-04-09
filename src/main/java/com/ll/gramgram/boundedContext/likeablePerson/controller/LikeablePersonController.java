@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,9 +65,21 @@ public class LikeablePersonController {
 
         return "usr/likeablePerson/list";
     }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        return rq.redirectWithMsg("/likeablePerson/list", "삭제되었습니다.");
-    }
+        LikeablePerson likeablePerson = likeablePersonService.findById(id).orElse(null);
 
+        if (likeablePerson == null) return rq.historyBack("이미 취소된 호감입니다.");
+
+        if (!Objects.equals(rq.getMember().getInstaMember().getId(), likeablePerson.getFromInstaMember().getId()))
+            return rq.historyBack("권한이 없습니다.");
+
+        RsData deleteRs = likeablePersonService.delete(likeablePerson);
+
+        if (deleteRs.isFail()) return rq.historyBack(deleteRs);
+
+        return rq.redirectWithMsg("/likeablePerson/list", deleteRs);
+    }
 }
