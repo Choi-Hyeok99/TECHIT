@@ -16,7 +16,6 @@ spring:
       client:
         registration:
           kakao:
-            clientId: '채워주세요.'
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
