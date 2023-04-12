@@ -39,6 +39,18 @@ public class LikeablePersonController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
     public String add(@Valid AddForm addForm) {
+
+        List <LikeablePerson> FromLikeablePeople = rq.getMember().getInstaMember().getFromLikeablePeople();
+
+        for(LikeablePerson Person : FromLikeablePeople){
+
+            if (Person.getToInstaMemberUsername().equals(addForm.getUsername())){
+
+                return rq.historyBack ("이미 저장된 호감상대 입니다.");
+
+            }
+        }
+
         RsData<LikeablePerson> createRsData = likeablePersonService.like(rq.getMember(), addForm.getUsername(), addForm.getAttractiveTypeCode());
 
         if (createRsData.isFail()) {
