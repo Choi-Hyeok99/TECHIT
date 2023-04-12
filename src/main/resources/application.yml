@@ -26,8 +26,8 @@ spring:
             client-name: Google
             scope: profile
           naver:
-            scope: name,email
-            client-name: naver
+            scope:
+            client-name: Naver
             authorization-grant-type: authorization_code
             redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
         provider:
