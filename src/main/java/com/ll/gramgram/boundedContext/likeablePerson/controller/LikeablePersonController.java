@@ -39,17 +39,9 @@ public class LikeablePersonController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
     public String add(@Valid AddForm addForm) {
+        RsData canLikeRsData = likeablePersonService.canLike(rq.getMember(), addForm.getUsername(), addForm.getAttractiveTypeCode());
 
-        List <LikeablePerson> FromLikeablePeople = rq.getMember().getInstaMember().getFromLikeablePeople();
-
-        for(LikeablePerson Person : FromLikeablePeople){
-
-            if (Person.getToInstaMemberUsername().equals(addForm.getUsername())){
-
-                return rq.historyBack ("이미 저장된 호감상대 입니다.");
-
-            }
-        }
+        if (canLikeRsData.isFail()) return rq.historyBack(canLikeRsData);
 
         RsData<LikeablePerson> createRsData = likeablePersonService.like(rq.getMember(), addForm.getUsername(), addForm.getAttractiveTypeCode());
 
@@ -80,7 +72,7 @@ public class LikeablePersonController {
     public String delete(@PathVariable Long id) {
         LikeablePerson likeablePerson = likeablePersonService.findById(id).orElse(null);
 
-        RsData canActorDeleteRsData = likeablePersonService.canActorDelete(rq.getMember(), likeablePerson);
+        RsData canActorDeleteRsData = likeablePersonService.canDelete(rq.getMember(), likeablePerson);
 
         if (canActorDeleteRsData.isFail()) return rq.historyBack(canActorDeleteRsData);
 
@@ -89,6 +81,5 @@ public class LikeablePersonController {
         if (deleteRsData.isFail()) return rq.historyBack(deleteRsData);
 
         return rq.redirectWithMsg("/likeablePerson/list", deleteRsData);
-
     }
 }
