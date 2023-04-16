@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,6 +29,7 @@ public class LikeablePersonService {
         if (member.getInstaMember().getUsername().equals(username)) {
             return RsData.of("F-1", "본인을 호감상대로 등록할 수 없습니다.");
         }
+
         InstaMember fromInstaMember = member.getInstaMember();
         InstaMember toInstaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 
@@ -63,7 +63,12 @@ public class LikeablePersonService {
 
     @Transactional
     public RsData delete(LikeablePerson likeablePerson) {
-        String toInstaMemberUsername = likeablePerson.getToInstaMember().getUsername();
+        // 너가 생성한 좋아요가 사라졌어.
+        likeablePerson.getFromInstaMember().removeFromLikeablePerson(likeablePerson);
+
+        // 너가 받은 좋아요가 사라졌어.
+        likeablePerson.getToInstaMember().removeToLikeablePerson(likeablePerson);
+
         likeablePersonRepository.delete(likeablePerson);
 
         String likeCanceledUsername = likeablePerson.getToInstaMember().getUsername();
@@ -78,7 +83,8 @@ public class LikeablePersonService {
         // 삭제 대상의 작성자(호감표시한 사람)의 인스타계정 번호
         long fromInstaMemberId = likeablePerson.getFromInstaMember().getId();
 
-        if (actorInstaMemberId != fromInstaMemberId)            return RsData.of("F-2", "권한이 없습니다.");
+        if (actorInstaMemberId != fromInstaMemberId)
+            return RsData.of("F-2", "권한이 없습니다.");
 
         return RsData.of("S-1", "삭제가능합니다.");
     }
