@@ -44,4 +44,29 @@ public class Tests {
                 Point.of(0, 0)
         );
     }
+    @Test
+    @DisplayName("교점, [[0, 1, -1], [1, 0, -1]]")
+    void t1_4() {
+        assertThat(
+                new Solution().intersection(
+                        new int[]{0, 1, -1},
+                        new int[]{1, 0, -1}
+                )
+        ).isEqualTo(
+                Point.of(1, 1)
+        );
+    }
+
+    @Test
+    @DisplayName("교점, [[0, 1, -1], [1, 0, 1]]")
+    void t1_5() {
+        assertThat(
+                new Solution().intersection(
+                        new int[]{0, 1, -1},
+                        new int[]{1, 0, 1}
+                )
+        ).isEqualTo(
+                Point.of(-1, 1)
+        );
+    }
 }
