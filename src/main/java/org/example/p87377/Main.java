@@ -1,8 +1,6 @@
 package org.example.p87377;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -56,6 +54,30 @@ class Solution {
         }
 
         return points;
+    }
+
+    public Point getMinPoint(Set<Point> points) {
+        long x = Long.MAX_VALUE;
+        long y = Long.MAX_VALUE;
+
+        for (Point point : points) {
+            x = Math.min(x, point.x);
+            y = Math.min(y, point.y);
+        }
+
+        return Point.of(x, y);
+    }
+
+    public Point getMaxPoint(Set<Point> points) {
+        long x = Long.MIN_VALUE;
+        long y = Long.MIN_VALUE;
+
+        for (Point point : points) {
+            x = Math.max(x, point.x);
+            y = Math.max(y, point.y);
+        }
+
+        return Point.of(x, y);
     }
 }
 
