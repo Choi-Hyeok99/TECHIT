@@ -15,7 +15,7 @@ public class Tests {
                         new int[]{2, -1, 0}
                 )
         ).isEqualTo(
-                new long[]{0, 0}
+                Point.of(0, 0)
         );
     }
 
@@ -28,7 +28,7 @@ public class Tests {
                         new int[]{4, -1, 0}
                 )
         ).isEqualTo(
-                new long[]{0, 0}
+                Point.of(0, 0)
         );
     }
 
@@ -41,7 +41,7 @@ public class Tests {
                         new int[]{4, -1, 0}
                 )
         ).isEqualTo(
-                new long[]{0, 0}
+                Point.of(0, 0)
         );
     }
 }
