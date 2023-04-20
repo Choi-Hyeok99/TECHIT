@@ -1,5 +1,7 @@
 package com.ll.exam1;
 
+import java.util.stream.IntStream;
+
 public class MyArrayList<T> {
     public boolean debug = false;
     private String[] data;
@@ -44,7 +46,7 @@ public class MyArrayList<T> {
             newData[i] = data[i];
         }
 
-        if ( debug ) {
+        if (debug) {
             System.out.printf("배열크기 증가 : %d => %d\n", data.length, newData.length);
         }
 
@@ -59,5 +61,20 @@ public class MyArrayList<T> {
 
     public String get(int index) {
         return data[index];
+    }
+
+    public int indexOf(String element) {
+        for (int i = 0; i < data.length; i++) {
+            if (element.equals(data[i])) return i;
+        }
+
+        return -1;
+
+//        return IntStream.range(0, size)
+//                .mapToObj(index -> new Object[]{index, data[index]})
+//                .filter(arr -> element.equals(arr[1]))
+//                .mapToInt(arr -> (int)arr[0])
+//                .findFirst()
+//                .orElse(-1);
     }
 }
