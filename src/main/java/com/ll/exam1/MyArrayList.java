@@ -1,6 +1,8 @@
 package com.ll.exam1;
 
 public class MyArrayList<T> {
+    private String[] data = new String[2];
+
     private int size = 0;
 
     public int size() {
@@ -8,11 +10,13 @@ public class MyArrayList<T> {
     }
 
     public boolean add(String element) {
+        data[size] = element;
+
         size++;
         return true;
     }
 
     public String get(int index) {
-        return "포도";
+        return data[index];
     }
 }
