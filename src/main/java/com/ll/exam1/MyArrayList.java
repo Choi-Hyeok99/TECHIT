@@ -1,9 +1,18 @@
 package com.ll.exam1;
 
 public class MyArrayList<T> {
-    private String[] data = new String[100];
+    public boolean debug = false;
+    private String[] data;
 
     private int size = 0;
+
+    public MyArrayList() {
+        this(2);
+    }
+
+    public MyArrayList(int dataLength) {
+        data = new String[dataLength];
+    }
 
     public int size() {
         return size;
@@ -31,8 +40,12 @@ public class MyArrayList<T> {
         String[] newData = new String[data.length * 2];
 
         // 기존 창고에 있던 물품들을 전부 새 창고로 옮긴다.
-        for ( int i = 0; i < data.length; i++ ) {
+        for (int i = 0; i < data.length; i++) {
             newData[i] = data[i];
+        }
+
+        if ( debug ) {
+            System.out.printf("배열크기 증가 : %d => %d\n", data.length, newData.length);
         }
 
         // 기존 창고과 계약을 해지한다.
