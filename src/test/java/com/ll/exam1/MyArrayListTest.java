@@ -182,4 +182,15 @@ public class MyArrayListTest {
         assertThat(list.get(1)).isEqualTo("Element2");
         assertThat(list.get(2)).isEqualTo("Element3");
     }
+    @Test
+    @DisplayName("remove")
+    void t14() {
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("Element1");
+        list.add("Element2");
+        list.add("Element3");
+
+        assertThat(list.remove(0)).isEqualTo("Element1");
+        assertThat(list.size()).isEqualTo(2);
+    }
 }
