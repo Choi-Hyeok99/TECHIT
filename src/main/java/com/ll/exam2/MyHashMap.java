@@ -4,6 +4,14 @@ public class MyHashMap<K, V> {
     private int size = 0;
     private Entry[] entries;
 
+    public MyHashMap() {
+        this(2);
+    }
+
+    public MyHashMap(int arrayLength) {
+        entries = new Entry[arrayLength];
+    }
+
     public V remove(K key) {
         int index = indexOfKey(key);
 
@@ -15,6 +23,8 @@ public class MyHashMap<K, V> {
         for (int i = index + 1; i < size; i++) {
             entries[i - 1] = entries[i];
         }
+
+        entries[size - 1] = null;
 
         size--;
 
@@ -28,6 +38,7 @@ public class MyHashMap<K, V> {
     public boolean containsValue(V value) {
         return indexOfValue(value) != -1;
     }
+
     public void clear() {
         for (int i = 0; i < size; i++) {
             entries[i] = null;
@@ -38,24 +49,6 @@ public class MyHashMap<K, V> {
 
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    private static class Entry<K, V> {
-        K key;
-        V value;
-
-        public Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    public MyHashMap() {
-        this(2);
-    }
-
-    public MyHashMap(int arrayLength) {
-        entries = new Entry[arrayLength];
     }
 
     public int size() {
@@ -129,5 +122,15 @@ public class MyHashMap<K, V> {
         }
 
         return -1;
+    }
+
+    private static class Entry<K, V> {
+        K key;
+        V value;
+
+        public Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 }
