@@ -27,6 +27,7 @@ public class LikeablePersonService {
     private final InstaMemberService instaMemberService;
     private final ApplicationEventPublisher publisher;
 
+
     @Transactional
     public RsData<LikeablePerson> like(Member actor, String username, int attractiveTypeCode) {
         RsData canLikeRsData = canLike(actor, username, attractiveTypeCode);
@@ -212,6 +213,7 @@ public class LikeablePersonService {
 
         return RsData.of("S-1", "호감표시취소가 가능합니다.");
     }
-    
+
+
 
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -23,6 +24,9 @@ import java.util.List;
 public class LikeablePersonController {
     private final Rq rq;
     private final LikeablePersonService likeablePersonService;
+//    private final LocalDateTime modifyUnlockDate;
+//    private boolean isCoolTimeActive = false;
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/like")
@@ -127,4 +131,5 @@ public class LikeablePersonController {
         //TODO : showToList 구현해야 함
         return "usr/likeablePerson/toList 구현해야 함";
     }
+
 }
