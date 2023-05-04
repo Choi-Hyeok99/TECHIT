@@ -1,9 +1,9 @@
 # 할일 
 
-- [] 회원가입 폼 
-  - [] 폼이 존재해야 한다.
-  - [] input[name="username] 필드가 있어야 한다.
-  - [] input[name="password"] 필드가 있어야 한다.
+- [X] 회원가입 폼 
+  - [X] 폼이 존재해야 한다.
+  - [X] input[name="username] 필드가 있어야 한다.
+  - [X] input[name="password"] 필드가 있어야 한다.
   - 
 - [] 회원가입 폼 처리
   - [] 유효성 체크를 해야 한다.
