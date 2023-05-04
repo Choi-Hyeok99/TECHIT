@@ -4,6 +4,7 @@
   - [X] 폼이 존재해야 한다.
   - [X] input[name="username] 필드가 있어야 한다.
   - [X] input[name="password"] 필드가 있어야 한다.
+  - [X] 폼 체크
   - 
 - [] 회원가입 폼 처리
   - [X] 유효성 체크를 해야 한다.
