@@ -1,7 +1,10 @@
 package com.ll.alonegramgram.boundedContext.member.controller;
 
 
+import com.ll.alonegramgram.boundedContext.member.entity.Member;
+import com.ll.alonegramgram.boundedContext.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MemberControllerTests {
     @Autowired
     private MockMvc mvc;
+    @Autowired
+    private MemberService memberSercice;
 
     @Test
     @DisplayName("회원가입 폼")
@@ -67,6 +72,10 @@ public class MemberControllerTests {
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is3xxRedirection());
+
+        Member member = memberSercice.findByUsername("user10").orElse(null);
+
+        assertThat(member).isNotNull();
     }
     @Test
     @DisplayName("회원가입시에 올바른 데이터를 넘기지 않으면 400")
