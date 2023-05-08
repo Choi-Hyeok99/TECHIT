@@ -1,4 +1,4 @@
-package com.ll.i18n;
+package com.ll.i18n.base.i18n.boundedContext.home.controller;
 
 
 import org.springframework.stereotype.Controller;
